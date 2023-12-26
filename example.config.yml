@@ -1,0 +1,10 @@
+nodes:
+  - name: node01
+    config_dir: /home/hakedev/nodes/node01
+    postdata_dir: /media/postdata01
+    smapp: false
+  - name: node02
+    config_dir: /home/hakedev/nodes/node02
+    postdata_dir: /media/postdata02
+    smapp: false
+prometheus_client_port: 8500
