@@ -11,6 +11,7 @@ class Normalizer:
         # Get the reward coinbases that are associated with the host
         accounts = []
         for node in data:
+            logger.info(node)
             reward_coinbase = node.get('grpc', {}).get('reward_coinbase', None)
             if reward_coinbase not in accounts:
                 accounts.append(reward_coinbase)
@@ -25,7 +26,7 @@ class Normalizer:
 
         layers = []
         for node in data:
-            for layer in node['grpc']['assigned_layers']:
+            for layer in node.get('grpc', {}).get('assigned_layers', []):
                 response = Utils.calculate_layer_date(layer)
                 response['reward_coinbase'] = node['grpc']['reward_coinbase']
                 response['node_id'] = node['grpc']['node_id']['grpc_node_id']

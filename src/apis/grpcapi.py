@@ -326,40 +326,40 @@ class GRPCAPI:
 
             if not online:
                 logger.warn(f'{prefix}: GRPC Server is offline. Node may still be initializing')
-                return {}
-            
-            tasks = [
-                GRPCAPI.get_highest_atx(public),
-                GRPCAPI.get_version(public),
-                GRPCAPI.get_build(public),
-                GRPCAPI.get_node_status(public),
-                GRPCAPI.get_current_epoch(public),
-                GRPCAPI.get_is_smeshing(private),
-                GRPCAPI.get_node_id(private),
-                GRPCAPI.get_reward_coinbase(private),
-                GRPCAPI.get_post_setup_status(private),
-                GRPCAPI.get_event_stream(private)
-            ]
+                data = {}
+            else:
+                tasks = [
+                    GRPCAPI.get_highest_atx(public),
+                    GRPCAPI.get_version(public),
+                    GRPCAPI.get_build(public),
+                    GRPCAPI.get_node_status(public),
+                    GRPCAPI.get_current_epoch(public),
+                    GRPCAPI.get_is_smeshing(private),
+                    GRPCAPI.get_node_id(private),
+                    GRPCAPI.get_reward_coinbase(private),
+                    GRPCAPI.get_post_setup_status(private),
+                    GRPCAPI.get_event_stream(private)
+                ]
 
-            [highest_atx, version, build, node_status, current_epoch, is_smeshing, node_id, reward_coinbase, post_setup_status, event_stream] = await asyncio.gather(*tasks)
+                [highest_atx, version, build, node_status, current_epoch, is_smeshing, node_id, reward_coinbase, post_setup_status, event_stream] = await asyncio.gather(*tasks)
 
-            events = event_stream.get('grpc_events', {})
-            assigned_layers = event_stream.get('assigned_layers', [])
+                events = event_stream.get('grpc_events', {})
+                assigned_layers = event_stream.get('assigned_layers', [])
 
-            data = {
-                'online': True,
-                'highest_atx': highest_atx,
-                'version': version,
-                'build': build,
-                'node_status': node_status,
-                'current_epoch': current_epoch,
-                'is_smeshing': is_smeshing,
-                'node_id': node_id,
-                'reward_coinbase': reward_coinbase,
-                'post_setup_status': post_setup_status,
-                'events': events,
-                'assigned_layers': assigned_layers
-            }
+                data = {
+                    'online': True,
+                    'highest_atx': highest_atx,
+                    'version': version,
+                    'build': build,
+                    'node_status': node_status,
+                    'current_epoch': current_epoch,
+                    'is_smeshing': is_smeshing,
+                    'node_id': node_id,
+                    'reward_coinbase': reward_coinbase,
+                    'post_setup_status': post_setup_status,
+                    'events': events,
+                    'assigned_layers': assigned_layers
+                }
         
         except Exception as e:
             # Log the exception type and message
