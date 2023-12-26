@@ -212,7 +212,7 @@ class GRPCAPI:
         try:
             admin_client = AdminClient(ip)
             results = await asyncio.to_thread(admin_client.get_event_stream)
-            assigned_layers = None
+            assigned_layers = []
             events = []
 
             for event in results:
