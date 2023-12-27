@@ -11,7 +11,7 @@ from typing import Dict
 class CMJAPI:
 
     @staticmethod
-    def get_cmj(prefix, smapp, config_dir) -> Dict:
+    def get_cmj(prefix, smapp, config_dir, public, private) -> Dict:
         # Extract common values
 
         if not config_dir:
@@ -19,7 +19,6 @@ class CMJAPI:
             return None
 
         try:
-            logger.info(f'{prefix}: Getting config.mainnet.json from {config_dir}')    
             data = None
 
             # SMAPP has two configs - the node-config.json is the one that is actually used when a node is running.
@@ -63,7 +62,16 @@ class CMJAPI:
 
             # GRPC was having issues with IP addresses so we are replacing those IPs with localhost.
             Utils.replace_local_host(data, prefix)
-        
+
+            if public:
+                logger.info(f'Overriding Public GRPC Address with {public}')
+                logger.info(f'Old: {data["cmj_grpc_public"]}')
+                data['cmj_grpc_public'] = public
+            if private:
+                logger.info(f'Overriding Private GPRC Address with {private}')
+                logger.info(f'Old: {data["cmj_grpc_private"]}')
+                data['cmj_grpc_private'] = private
+
         except FileNotFoundError as e:
             # Log the exception type and message
             logger.error(f"Exception type: {type(e).__name__}, Message: {str(e)}")

@@ -11,7 +11,6 @@ class Normalizer:
         # Get the reward coinbases that are associated with the host
         accounts = []
         for node in data:
-            logger.info(node)
             reward_coinbase = node.get('grpc', {}).get('reward_coinbase', None)
             if reward_coinbase not in accounts:
                 accounts.append(reward_coinbase)

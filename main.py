@@ -6,6 +6,7 @@ import sys
 from src.utils.logger import logger
 from src.utils.utils import Utils
 from src.services.shephard import Shephard
+import src.utils.constants as constants
 
 async def run() -> None:
     # Load configs
@@ -36,7 +37,7 @@ async def run() -> None:
         logger.error(f"Traceback:\n{traceback_info}")
 
 if __name__ == "__main__":
-    logger.info('Starting Spuds')
+    logger.info(f'Starting Spuds {constants.VERSION}')
 
     # Configure argparse
     parser = argparse.ArgumentParser(description='Spuds is the best way to monitor and track your Spacemesh nodes!')
