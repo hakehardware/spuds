@@ -33,19 +33,23 @@ class TTAPI:
                             'node_id': entry['smesherId'],
                             'layer': entry['layer']
                         })
-                            
+                else:
+                    logger.error('Received Error Connectiong to Rewards API')
+                    break
                 offset+=50
 
                 if counter > 10:
                     logger.error('Breaking account reward loop as counter has exceeded limit. Max 500 results')
                     break
         else:
-            print('no min layer, only running once')
+            print('No min layer, only running once')
             url = f'https://smeshi-api.com/account/{account}/rewards?sort=desc&limit={LIMIT}&offset={offset}'
             response = requests.get(url)
 
             if response.status_code == 200:
                 data = response.json()
                 rewards.extend(data)
+            else:
+                logger.error('Received Error Connectiong to Rewards API')
 
         return rewards
