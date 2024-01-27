@@ -9,12 +9,12 @@ from src.apis.ttapi import TTAPI
 
 class Aggregator:
     async def scrape(node_config):
-        config_dir, smapp, name, public, private = node_config['config_dir'], node_config['smapp'], node_config['name'], node_config['public_address'], node_config['private_address']
+        config_dir, config_name_override, smapp, name, public, private = node_config['config_dir'], node_config['config_name_override'], node_config['smapp'], node_config['name'], node_config['public_address'], node_config['private_address']
         prefix = f'[{name}]'
 
         logger.info(f'{prefix}: Starting Scraper...')
 
-        cmj = CMJAPI.get_cmj(prefix, smapp, config_dir, public, private)
+        cmj = CMJAPI.get_cmj(prefix, smapp, config_dir, config_name_override, public, private)
         # logger.info(json.dumps(cmj, indent=4))
 
         if not cmj:

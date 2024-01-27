@@ -11,8 +11,12 @@ from typing import Dict
 class CMJAPI:
 
     @staticmethod
-    def get_cmj(prefix, smapp, config_dir, public, private) -> Dict:
+    def get_cmj(prefix, smapp, config_dir, config_name_override, public, private) -> Dict:
         # Extract common values
+
+        config_name = 'config.mainnet.json'
+        if config_name_override:
+            config_name = config_name_override
 
         if not config_dir:
             logger.error(f'{prefix}: No config dir listed in config.yml')
@@ -29,7 +33,7 @@ class CMJAPI:
                     node_config = json.load(file)
 
             else:
-                path = os.path.join(config_dir, 'config.mainnet.json')
+                path = os.path.join(config_dir, config_name)
                 logger.info(f'{prefix}: Getting config from {path}')
                 with open(path, 'r') as file:
                     node_config = json.load(file)

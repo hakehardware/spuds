@@ -1,14 +1,16 @@
 nodes:
   - name: node01
-    config_dir: /home/hakedev/nodes/node01
+    config_dir: /home/hakedev/nodes/node01/
+    config_name_override: config.json
     postdata_dir: /media/postdata01
     public_address: 172.1.0.101:9093
     private_address: 172.1.0.101:9094
     smapp: false
   - name: node02
-    config_dir: /home/hakedev/nodes/node02
+    config_dir: /home/hakedev/nodes/node02/
     postdata_dir: /media/postdata02
     public_address: 172.1.0.101:9093
     private_address: 172.1.0.101:9094
+    config_name_override: config.json
     smapp: false
 prometheus_client_port: 8500
