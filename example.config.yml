@@ -1,7 +1,7 @@
 nodes:
   - name: node01
     config_dir: /home/hakedev/nodes/node01/
-    config_name_override: config.json
+    config_name_override: config.json # Only needed if you run a custom config name
     postdata_dir: /media/postdata01
     public_address: 172.1.0.101:9093
     private_address: 172.1.0.101:9094
@@ -11,6 +11,6 @@ nodes:
     postdata_dir: /media/postdata02
     public_address: 172.1.0.101:9093
     private_address: 172.1.0.101:9094
-    config_name_override: config.json
+    config_name_override: config.json # Only needed if you run a custom config name other wise use false
     smapp: false
 prometheus_client_port: 8500
