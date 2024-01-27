@@ -21,7 +21,7 @@ class TTAPI:
             while not layer_met:
                 url = f'{BASE_URL}/account/{account}/rewards?sort=desc&limit={LIMIT}&offset={offset}'
 
-                response = requests.get(url, HEADERS)
+                response = requests.get(url, headers=HEADERS)
                 if response.status_code == 200:
                     logger.info('Received Response from Account Rewards API')
 
@@ -49,7 +49,7 @@ class TTAPI:
         else:
             print('No min layer, only running once')
             url = f'{BASE_URL}/account/{account}/rewards?sort=desc&limit={LIMIT}&offset={offset}'
-            response = requests.get(url, HEADERS)
+            response = requests.get(url, headers=HEADERS)
 
             if response.status_code == 200:
                 data = response.json()
