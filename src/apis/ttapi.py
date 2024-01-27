@@ -2,6 +2,11 @@ import requests
 from typing import Dict
 from src.utils.logger import logger
 
+BASE_URL = 'https://spacemesh-api-v2.swarmbit.io'
+HEADERS = {
+    'x-api-key': '90e19edf-bfe3-46ef-89f3-a68fade35632'
+}
+# Yes there is an API key here. If it is abused then this will be disabled and no one can use it. 
 
 class TTAPI:
     @staticmethod
@@ -14,9 +19,9 @@ class TTAPI:
 
         if min_layer:
             while not layer_met:
-                url = f'https://smeshi-api.com/account/{account}/rewards?sort=desc&limit={LIMIT}&offset={offset}'
+                url = f'{BASE_URL}/account/{account}/rewards?sort=desc&limit={LIMIT}&offset={offset}'
 
-                response = requests.get(url)
+                response = requests.get(url, HEADERS)
                 if response.status_code == 200:
                     logger.info('Received Response from Account Rewards API')
 
@@ -43,8 +48,8 @@ class TTAPI:
                     break
         else:
             print('No min layer, only running once')
-            url = f'https://smeshi-api.com/account/{account}/rewards?sort=desc&limit={LIMIT}&offset={offset}'
-            response = requests.get(url)
+            url = f'{BASE_URL}/account/{account}/rewards?sort=desc&limit={LIMIT}&offset={offset}'
+            response = requests.get(url, HEADERS)
 
             if response.status_code == 200:
                 data = response.json()
